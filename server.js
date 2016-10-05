@@ -7,11 +7,11 @@ const PORT = process.env.PORT || 3000;
 
 app.use( function (req, res, next) {
   console.log("++++++++++++++",req.protocol);
-  if ( req.protocol ='http' ) {
-    next();
+  if ( req.headers['x-forwarded-proto'] === 'https') {
+    res.redirect('http://'+req.hostname + req.url);
   } else {
-      res.redirect('http://'+req.hostname + req.url)
-  }
+      next();
+      }
 });
 app.use(express.static('public'));
 
