@@ -6,11 +6,11 @@ var app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use( function (req, res, next) {
-  console.log("++++++++++++++",req.connection);
-  if ( req.connection.encrypted ) {
-    res.redirect('http://'+req.hostname +req.url)
+  console.log("++++++++++++++",req.protocol);
+  if ( req.protocol ='http' ) {
+    next();
   } else {
-      next();
+      res.redirect('http://'+req.hostname + req.url)
   }
 });
 app.use(express.static('public'));
