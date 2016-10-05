@@ -6,9 +6,9 @@ var app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use( function (req, res, next) {
-  console.log("++++++++++++++",req.connection.encrypted);
-  if ( req.connection.encrypted === 'undefined' ) {
-    res.redirect('https://'+req.hostname +req.url)
+  console.log("++++++++++++++",req.connection);
+  if ( req.connection.encrypted ) {
+    res.redirect('http://'+req.hostname +req.url)
   } else {
       next();
   }
